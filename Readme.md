@@ -85,7 +85,7 @@ This is ***your*** job. It's up to the module creator to prove that their work i
 	0       | No Submission |
 
 - 3pts: Code meets industry standards
-	- These points are only awardable if you score at minimum a 5/7 on above criteria
+	- These points are only awardable if you score at minimum a 4/7 on above criteria
 
 	Points  | Reasoning | 
 	 ------------ | :-----------: | 
