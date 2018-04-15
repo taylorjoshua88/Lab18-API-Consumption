@@ -1,0 +1,18 @@
+﻿@model JObject
+
+@{
+    ViewBag.Title = "Rover View";
+    ViewBag.Tagline = "Views from the mars rovers' cameras";
+}
+
+<dl>
+    @foreach (var (key, value) in Model)
+    {
+        <dt>
+            @key
+        </dt>
+        <dd>
+            @value
+        </dd>
+    }
+</dl>
