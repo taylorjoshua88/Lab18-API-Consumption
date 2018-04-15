@@ -29,14 +29,25 @@ namespace MarsStreetView.Controllers
         }
 
         public async Task<IActionResult> Index(DateTime? earthDate,
-            string rover = "curiosity", string camera = "fhaz")
+            string camera, string rover = "curiosity")
         {
+            if (!earthDate.HasValue)
+            {
+                // Spirit stopped sending imagery on March 22nd, 2010
+                earthDate = (rover == "spirit") ? DateTime.Parse("2010-3-21") :
+                    DateTime.Today - TimeSpan.FromDays(1.0);
+            }
+
             StringBuilder requestSB = new StringBuilder($"{rover}/photos?");
 
             requestSB.AppendJoin('&',
-                $"earth_date={(earthDate ?? DateTime.Today - TimeSpan.FromDays(1.0)).ToString("yyyy-MM-dd")}",
-                $"camera={camera}",
+                $"earth_date={earthDate.Value.ToString("yyyy-MM-dd")}",
                 $"api_key={NasaAPIKey}");
+
+            if (!string.IsNullOrWhiteSpace(camera))
+            {
+                requestSB.Append($"&camera={camera}");
+            }
 
             using (HttpClient client = new HttpClient())
             {
