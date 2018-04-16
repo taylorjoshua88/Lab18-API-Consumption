@@ -1,0 +1,19 @@
+﻿@model FavoriteList
+
+@{
+    ViewBag.Title = "Create new Favorite List";
+    ViewBag.Tagline = "Create a new favorite list to store your favorite rover photos";
+}
+
+<div class="card">
+    <p class="card-header">Create a new favorite list</p>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input class="form-control" asp-for="Name" />
+            </div>
+            <button type="submit" class="form-control">Create</button>
+        </form>
+    </div>
+</div>

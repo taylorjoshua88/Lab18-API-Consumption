@@ -1,0 +1,14 @@
+﻿@model AddFavoriteViewModel
+
+@{
+    @ViewBag.Title = "Add image to favorite list";
+    @ViewBag.Tagline = "Add an image to a favorite list or reassign it to another";
+}
+
+<form asp-action="AddFavorite" method="post">
+    <div class="form-group">
+        <label asp-for="Favorite.List"></label>
+        <select asp-for="Favorite.List" asp-items="@(new SelectList(Model.Lists, "Id", "Name"))"></select>
+    </div>
+    <button type="submit" class="form-control"></button>
+</form>

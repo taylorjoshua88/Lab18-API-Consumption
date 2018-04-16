@@ -1,0 +1,65 @@
+﻿@model RoverIndexViewModel
+
+@{
+    ViewBag.Title = $"{Model.Rover} Imagery";
+    ViewBag.Tagline = $"Views from the {Model.Rover} rover cameras";
+}
+
+<div class="row justify-content-center">
+    <div class="card mb-3 bg-primary">
+        <p class="card-header">Results Filtering</p>
+        <div class="card-body">
+            <form asp-action="Index" class="form-inline" method="get">
+                <div class="form-group">
+                    <label asp-for="Camera" class="col-auto"></label>
+                    <select asp-for="Camera" asp-items="@Model.CameraList" class="form-control col-auto">
+                        <option value="">All Cameras</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EarthDate" class="col-auto"></label>
+                    <input asp-for="EarthDate" class="form-control col-auto" />
+                </div>
+                <input type="hidden" asp-for="Rover" value="@Model.Rover" />
+                <button type="submit" class="form-control btn-success ml-3">Apply Filters</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    @if (!Model.ResponseJSON.HasValues || Model.ResponseJSON["photos"].Count() < 1)
+    {
+        <div class="alert alert-warning">
+            No imagery was found for the specified rover, date, and camera combination. Please try again with different filters.
+        </div>
+    }
+    else
+    {
+        @foreach (var photo in Model.ResponseJSON["photos"])
+        {
+            <div class="col-auto">
+                <div class="card mb-3">
+                    <p class="card-header">@Model.Rover Image</p>
+                    <div class="card-body">
+                        <dl>
+                            <dt>Rover</dt>
+                            <dd>@photo["rover"]["name"]</dd>
+                            <dt>Camera</dt>
+                            <dd>@photo["camera"]["name"] (@photo["camera"]["full_name"])</dd>
+                            <dt>Earth Date</dt>
+                            <dd>@photo["earth_date"]</dd>
+                            <dt>Sol</dt>
+                            <dd>@photo["sol"]</dd>
+                            <dt>Image ID</dt>
+                            <dd><a href="@photo["img_src"]">@photo["id"]</a></dd>
+                            <dt>Favorite List</dt>
+                            <dd><a class="btn btn-success" asp-controller="FavoriteLists" asp-action="AddFavorite" asp-route-rover="@photo["rover"]["name"]" asp-route-cameraname="@photo["camera"]["name"]" asp-route-camerafullname="@photo["camera"]["full_name"]" asp-route-earthdate="@photo["earth_date"]" asp-route-sol="@photo["sol"]" asp-route-href="@photo["href"]" asp-route-nasaid="@photo["id"]">Add to Favorite List</a></dd>
+                        </dl>
+                    </div>
+                    <a href="@photo["img_src"]"><img class="card-img-bottom" src="@photo["img_src"]" /></a>
+                </div>
+            </div>
+        }
+    }
+</div>
