@@ -53,6 +53,8 @@
                             <dd>@photo["sol"]</dd>
                             <dt>Image ID</dt>
                             <dd><a href="@photo["img_src"]">@photo["id"]</a></dd>
+                            <dt>Favorite List</dt>
+                            <dd><a class="btn btn-success" asp-controller="FavoriteLists" asp-action="AddFavorite" asp-route-rover="@photo["rover"]["name"]" asp-route-cameraname="@photo["camera"]["name"]" asp-route-camerafullname="@photo["camera"]["full_name"]" asp-route-earthdate="@photo["earth_date"]" asp-route-sol="@photo["sol"]" asp-route-href="@photo["href"]" asp-route-nasaid="@photo["id"]">Add to Favorite List</a></dd>
                         </dl>
                     </div>
                     <a href="@photo["img_src"]"><img class="card-img-bottom" src="@photo["img_src"]" /></a>

@@ -9,6 +9,7 @@ namespace MarsStreetView.Models
     public class Favorite
     {
         public int Id { get; set; }
+        public int NasaID { get; set; }
 
         public string Href { get; set; }
         public int Sol { get; set; }

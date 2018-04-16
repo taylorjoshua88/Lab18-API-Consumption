@@ -8,6 +8,7 @@ using MarsStreetView.Data;
 using MarsStreetView.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
 namespace MarsStreetView.Controllers
@@ -55,6 +56,7 @@ namespace MarsStreetView.Controllers
                 requestSB.Append($"&camera={camera.ToLower()}");
             }
 
+            // Send our API request
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = RoverBaseURI;

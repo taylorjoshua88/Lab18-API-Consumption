@@ -97,5 +97,32 @@ namespace MarsStreetView.Controllers
             TempData["NotificationMessage"] = $"Successfully created the {list.Name} favorite list!";
             return RedirectToAction("List", list.Id);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddFavorite(string rover, string cameraName,
+            string cameraFullName, string earthDate, int sol, string href, int nasaId)
+        {
+            Favorite favorite = 
+                await _context.Favorite.FirstOrDefaultAsync(f => f.NasaID == nasaId);
+
+            AddFavoriteViewModel viewModel = new AddFavoriteViewModel()
+            {
+                Existing = favorite != null,
+                Lists = await _context.FavoriteList.ToListAsync(),
+                Favorite = favorite ?? new Favorite
+                {
+                    RoverName = rover,
+                    CameraName = cameraName,
+                    CameraFullName = cameraFullName,
+                    EarthDate = DateTime.Parse(earthDate),
+                    Sol = sol,
+                    NasaID = nasaId,
+                    Href = href,
+                    List = null
+                }
+            };
+
+            return View(viewModel);
+        }
     }
 }

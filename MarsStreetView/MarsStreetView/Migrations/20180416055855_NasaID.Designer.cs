@@ -11,9 +11,10 @@ using System;
 namespace MarsStreetView.Migrations
 {
     [DbContext(typeof(MarsStreetViewDbContext))]
-    partial class MarsStreetViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180416055855_NasaID")]
+    partial class NasaID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
