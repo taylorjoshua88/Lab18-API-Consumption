@@ -37,27 +37,20 @@
                     <div class="card-body">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" asp-controller="Rovers" asp-action="Index" asp-route-rover="curiosity">Curiosity</a>
+                                <a class="nav-link @((ViewBag.Title.Contains("curiosity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="curiosity">Curiosity</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Rovers" asp-action="Index" asp-route-rover="opportunity">Opportunity</a>
+                                <a class="nav-link @((ViewBag.Title.Contains("opportunity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="opportunity">Opportunity</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Rovers" asp-action="Index" asp-route-rover="spirit">Spirit</a>
+                                <a class="nav-link @((ViewBag.Title.Contains("spirit")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="spirit">Spirit</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12">
-                <div class="card">
-                    <p class="card-header">
-                        @ViewBag.Title
-                    </p>
-                    <div class="card-body">
-                        @RenderBody()
-                    </div>
-                </div>
+                @RenderBody()
             </div>
         </div>
         <br />

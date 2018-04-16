@@ -5,7 +5,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MarsStreetView.Data;
+using MarsStreetView.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
 
 namespace MarsStreetView.Controllers
@@ -38,7 +40,7 @@ namespace MarsStreetView.Controllers
                     DateTime.Today - TimeSpan.FromDays(1.0);
             }
 
-            StringBuilder requestSB = new StringBuilder($"{rover}/photos?");
+            StringBuilder requestSB = new StringBuilder($"{rover.ToLower()}/photos?");
 
             requestSB.AppendJoin('&',
                 $"earth_date={earthDate.Value.ToString("yyyy-MM-dd")}",
@@ -46,7 +48,7 @@ namespace MarsStreetView.Controllers
 
             if (!string.IsNullOrWhiteSpace(camera))
             {
-                requestSB.Append($"&camera={camera}");
+                requestSB.Append($"&camera={camera.ToLower()}");
             }
 
             using (HttpClient client = new HttpClient())
@@ -56,7 +58,20 @@ namespace MarsStreetView.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return View(JObject.Parse(await response.Content.ReadAsStringAsync()));
+                    RoverIndexViewModel roverVM = new RoverIndexViewModel()
+                    {
+                        Camera = camera,
+                        EarthDate = earthDate.Value,
+                        Rover = rover,
+                        ResponseJSON = JObject.Parse(await response.Content.ReadAsStringAsync())
+                    };
+
+                    if (roverVM.ResponseJSON.HasValues && roverVM.ResponseJSON["photos"].Count() > 0)
+                    {
+                        roverVM.CameraList = new SelectList(roverVM.ResponseJSON["photos"].FirstOrDefault()["rover"]["cameras"].Select(c => c["name"]));
+                    }
+
+                    return View(roverVM);
                 }
                 else
                 {
