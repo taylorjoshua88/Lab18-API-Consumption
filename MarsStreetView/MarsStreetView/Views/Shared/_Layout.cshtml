@@ -28,31 +28,30 @@
                 </div>
             </div>
         </div>
+
         @if (TempData.ContainsKey("NotificationMessage"))
         {
             <div class="row alert @(TempData.ContainsKey("NotificationType") ? TempData["NotificationType"] : "")">
                 @TempData["NotificationMessage"]
             </div>
         }
-        <div class="row">
-            <div class="card-body">
-                <ul class="nav nav-pills nav-justified">
-                    <li class="nav-item">
-                        <a class="nav-link @((ViewBag.Title.Contains("curiosity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="curiosity">Curiosity</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @((ViewBag.Title.Contains("opportunity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="opportunity">Opportunity</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @((ViewBag.Title.Contains("spirit")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="spirit">Spirit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @((ViewBag.Title.Contains("Favorite")) ? "active" : "")" asp-controller="FavoriteLists" asp-action="Index">Favorite Lists</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-            @RenderBody()
+
+        <ul class="nav nav-pills nav-justified mb-3">
+            <li class="nav-item">
+                <a class="nav-link @((ViewBag.Title.Contains("curiosity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="curiosity">Curiosity</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @((ViewBag.Title.Contains("opportunity")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="opportunity">Opportunity</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @((ViewBag.Title.Contains("spirit")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="spirit">Spirit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @((ViewBag.Title.Contains("Favorite")) ? "active" : "")" asp-controller="FavoriteLists" asp-action="Index">Favorite Lists</a>
+            </li>
+        </ul>
+
+        @RenderBody()
         <br />
         <strong>Copyright (C) 2018 <a href="mailto:taylor.joshua88@gmail.com">Joshua William Taylor</a></strong>
     </div>

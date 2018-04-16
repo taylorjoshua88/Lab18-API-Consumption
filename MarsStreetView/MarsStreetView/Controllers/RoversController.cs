@@ -31,8 +31,12 @@ namespace MarsStreetView.Controllers
         }
 
         public async Task<IActionResult> Index(DateTime? earthDate,
-            string camera, string rover = "curiosity")
+            string camera, string rover)
         {
+            if (string.IsNullOrWhiteSpace(rover))
+            {
+                rover = "curiosity";
+            }
             if (!earthDate.HasValue)
             {
                 // Spirit stopped sending imagery on March 22nd, 2010

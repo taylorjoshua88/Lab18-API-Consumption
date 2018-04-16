@@ -9,7 +9,7 @@
     <div class="card mb-3 bg-primary">
         <p class="card-header">Results Filtering</p>
         <div class="card-body">
-            <form asp-action="Index" asp-route-rover="@Model.Rover" class="form-inline" method="get">
+            <form asp-action="Index" class="form-inline" method="get">
                 <div class="form-group">
                     <label asp-for="Camera" class="col-auto"></label>
                     <select asp-for="Camera" asp-items="@Model.CameraList" class="form-control col-auto">
@@ -20,6 +20,7 @@
                     <label asp-for="EarthDate" class="col-auto"></label>
                     <input asp-for="EarthDate" class="form-control col-auto" />
                 </div>
+                <input type="hidden" asp-for="Rover" value="@Model.Rover" />
                 <button type="submit" class="form-control btn-success ml-3">Apply Filters</button>
             </form>
         </div>
