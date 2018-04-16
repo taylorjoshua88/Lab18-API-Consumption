@@ -1,0 +1,30 @@
+﻿@model List<FavoriteList>
+
+@{
+    ViewBag.Title = "Favorite Lists";
+    ViewBag.Tagline = "All current favorite lists in the database";
+}
+
+<div class="card">
+    <p class="card-header">Favorite Lists</p>
+    <div class="card-body">
+        @if (Model.Count < 1)
+        {
+            <div class="alert alert-warning">
+                There are no favorite lists yet. Please add some in the rover imagery views.
+            </div>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var list in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a asp-action="List" asp-route-id="@list.Id" class="list-group-item list-group-item-action">@list.Name</a>
+                        <span class="badge badge-primary badge-pill">@list.Favorites.Count()</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

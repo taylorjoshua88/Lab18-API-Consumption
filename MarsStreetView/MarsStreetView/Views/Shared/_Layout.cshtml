@@ -28,11 +28,17 @@
                 </div>
             </div>
         </div>
+        @if (TempData.ContainsKey("NotificationMessage"))
+        {
+            <div class="row alert @(TempData.ContainsKey("NotificationType") ? TempData["NotificationType"] : "")">
+                @TempData["NotificationMessage"]
+            </div>
+        }
         <div class="row">
             <div class="col-lg-3 col-md-4">
                 <div class="card mb-md-auto mb-2">
                     <strong class="card-header d-none d-md-block">
-                        Rovers
+                        Menu
                     </strong>
                     <div class="card-body">
                         <ul class="nav nav-pills flex-column">
@@ -44,6 +50,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link @((ViewBag.Title.Contains("spirit")) ? "active" : "")" asp-controller="Rovers" asp-action="Index" asp-route-rover="spirit">Spirit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @((ViewBag.Title.Contains("Favorite")) ? "active" : "")" asp-controller="FavoriteLists" asp-action="Index">Favorite Lists</a>
                             </li>
                         </ul>
                     </div>
